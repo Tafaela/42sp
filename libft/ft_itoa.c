@@ -1,40 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rermacor <rermacor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/03 15:06:15 by rermacor          #+#    #+#             */
-/*   Updated: 2026/06/05 16:31:29 by rermacor         ###   ########.fr       */
+/*   Created: 2026/06/16 14:27:26 by rermacor          #+#    #+#             */
+/*   Updated: 2026/06/16 17:54:05 by rermacor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_verset(char c, const char *set)
+static int	ft_count_digits(long n)
 {
-	while (*set)
+	int	len;
+
+	len = 0;
+	if (n <= 0)
+		len++;
+	while (n)
 	{
-		if (*set == c)
-			return (1);
-		set++;
+		n /= 10;
+		len++;
 	}
-	return (0);
+	return (len);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_itoa(int n)
 {
-	size_t	start;
-	size_t	end;
+	long	nb;
+	int		len;
+	char	*str;
 
-	if (!s1 || !set)
+	nb = n;
+	len = ft_count_digits(nb);
+	str = malloc(len + 1);
+	if (!str)
 		return (NULL);
-	start = 0;
-	while (s1[start] != '\0' && ft_verset(s1[start], set))
-		start++;
-	end = ft_strlen(s1);
-	while (end > start && ft_verset(s1[end - 1], set))
-		end--;
-	return (ft_substr(s1, start, end - start));
+	str[len] = '\0';
+	if (nb == 0)
+		str[0] = '0';
+	if (nb < 0)
+	{
+		str[0] = '-';
+		nb = -nb;
+	}
+	while (nb > 0)
+	{
+		str[--len] = (nb % 10) + '0';
+		nb /= 10;
+	}
+	return (str);
 }
