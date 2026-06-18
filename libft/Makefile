@@ -6,7 +6,7 @@
 #    By: rermacor <rermacor@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/17 18:41:46 by rermacor          #+#    #+#              #
-#    Updated: 2026/06/17 18:42:58 by rermacor         ###   ########.fr        #
+#    Updated: 2026/06/18 15:51:18 by rermacor         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,9 +65,9 @@ $(NAME): $(OBJS)
 %.o: %.c libft.h
 		$(CC) $(CFLAGS) -c $< -o $@
 clean:
-		$(RM) $(OBJS) $(BONUS_OBJS)
+		$(RM) $(OBJS)
 fclean: clean
 		$(RM) $(NAME)
 re: fclean all
-		$(AR) $(NAME) $(BONUS_OBJS)
+
 .PHONY: all clean fclean re bonus
